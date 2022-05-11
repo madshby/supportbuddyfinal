@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-//import CreateTicket from "../Models/CreateTicket";
+
 class CreateTicketEmbed extends Component {
   constructor(props) {
     super(props);
