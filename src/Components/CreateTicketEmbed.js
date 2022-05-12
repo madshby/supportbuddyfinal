@@ -22,6 +22,9 @@ class CreateTicketEmbed extends Component {
       .post("http://vps.qvistgaard.me:8980/api/ticket", this.state)
       .then((response) => {
         console.log(response);
+        const height = this.divElement.clientHeight;
+        console.log(height);
+        this.setState({ height });
       })
       .catch((error) => {
         console.log(error);
@@ -44,7 +47,12 @@ class CreateTicketEmbed extends Component {
           user calling on the phone etc.
         </p>
 
-        <form onSubmit={this.submitHandler}>
+        <form
+          ref={(divElement) => {
+            this.divElement = divElement;
+          }}
+          onSubmit={this.submitHandler}
+        >
           <div className="row">
             <div className="col-12 col-md-6">
               <h4>User Information</h4>
