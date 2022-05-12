@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CreateTicketEmbed from "./Components/CreateTicketEmbed";
-import LookAtTicket from "./Components/LookAtTicket"
+import LookAtTicket from "./Components/LookAtTicket";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {

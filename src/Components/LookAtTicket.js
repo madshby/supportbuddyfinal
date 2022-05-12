@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 class LookAtTicket extends Component {
     render() {
         return (
