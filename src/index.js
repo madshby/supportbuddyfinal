@@ -8,7 +8,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 const AvatarWidget = () => {
   return (
     <>
-      <div>Avatar Widget</div>
       <div>
         <Avatar
           style={{
