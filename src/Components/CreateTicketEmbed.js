@@ -144,7 +144,9 @@ class CreateTicketEmbed extends Component {
               </button>
             </div>
             <div className="col-12 col-md-6">
-              <button className="btn btn-danger w-100 mb-3">Reset</button>
+              <button type="reset" className="btn btn-danger w-100 mb-3">
+                Reset
+              </button>
             </div>
           </div>
         </form>

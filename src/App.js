@@ -9,7 +9,11 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route exact path="/" element={<CreateTicketEmbed />}></Route>
+          <Route
+            exact
+            path="/createticket"
+            element={<CreateTicketEmbed />}
+          ></Route>
           <Route exact path="/viewticket" element={<LookAtTicket />}></Route>
         </Routes>
       </Router>
