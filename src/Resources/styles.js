@@ -5,7 +5,7 @@ export const styles = {
     // Border
     borderRadius: "50%",
     // Background
-    backgroundImage: `url(https://govarde.dk/wp-content/uploads/2020/10/mads6.jpg)`,
+    backgroundImage: `url(https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Blue_question_mark_icon.svg/1200px-Blue_question_mark_icon.svg.png)`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundSize: "84px",

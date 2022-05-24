@@ -21,15 +21,17 @@ class CreateTicketEmbed extends Component {
     axios
       .post("http://vps.qvistgaard.me:8980/api/ticket", this.state)
       .then((response) => {
-        console.log(response);
-        const height = this.divElement.clientHeight;
-        console.log(height);
-        this.setState({ height });
+        alert("Ticket was created :-)");
+        this.resetForm();
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
       });
   };
+
+  resetForm = () => {
+    this.setState({ firstName: "", lastName: "", email: "", phoneNumber: "", subject: "", message: "" });
+  }
 
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -52,6 +54,7 @@ class CreateTicketEmbed extends Component {
             this.divElement = divElement;
           }}
           onSubmit={this.submitHandler}
+          id="createForm"
         >
           <div className="row">
             <div className="col-12 col-md-6">
