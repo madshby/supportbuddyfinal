@@ -2,6 +2,8 @@ import React from "react";
 import { styles } from "../../Resources/styles";
 
 function onSubmitLiveChat() {
+    const API_URL = "http://vps.qvistgaard.me:8980";
+
     let firstNameField = document.getElementById('firstName').value;
     let lastNameField = document.getElementById("lastName").value;
     let emailField = document.getElementById("email").value;
@@ -20,7 +22,7 @@ function onSubmitLiveChat() {
         body: JSON.stringify(sendObj)
     };
 
-    fetch('https://localhost:5001/api/livechat', requestOptions)
+    fetch(API_URL + '/api/livechat', requestOptions)
         .then(async response => {
             const isJson = response.headers.get('content-type')?.includes('application/json');
             const data = isJson && await response.json();
@@ -41,11 +43,12 @@ function onSubmitLiveChat() {
 }
 
 function openWebSocket(id) {
+    const WS_URL = "ws://vps.qvistgaard.me:8980";
     document.getElementById('chatWindow').innerHTML = '' +
         '<textarea class="form-control" style="height:90%;resize: none;" id="chatTextArea" disabled="disabled"></textarea>' +
         '<div class="row" style="height:10%"><div class="col-8"><input placeholder="Type message here..." type="text" class="form-control form-control-lg" id="messageToSend" /></div><div class="col-4"><button id="sendMessageBtn" class="btn btn-lg btn-primary w-100">Send</button></div></div>';
 
-    const ws = new WebSocket("wss://localhost:5001/ws/"+ id);
+    const ws = new WebSocket(WS_URL + "/ws/"+ id);
 
     ws.onmessage = function(event) {
         console.log(event.data);

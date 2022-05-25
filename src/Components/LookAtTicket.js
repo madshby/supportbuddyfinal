@@ -1,28 +1,81 @@
 import React, { Component } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
+function withParams(Component) {
+  return props => <Component {...props} params={useParams()} />;
+}
+
 class LookAtTicket extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentId: this.props.params.id,
+      currentTicket: {
+        id: 0,
+        status: "",
+        subject: "",
+        message: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        answers: [],
+        timeStamp: ""
+      }
+    };
+  }
+
+  componentDidMount() {
+    this.getTicket().then(response => this.setState({ currentTicket: response }));
+  }
+
+  getTicket() {
+    return fetch('http://vps.qvistgaard.me:8980/api/ticket/'+this.state.currentId)
+        .then(response => response.json());
+  }
+
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  submitHandler = (e) => {
+    e.preventDefault();
+
+    axios
+        .post("http://vps.qvistgaard.me:8980/api/ticket/"+this.state.currentId, { message: this.state.message })
+        .then((response) => {
+          this.getTicket().then(response => this.setState({currentTicket: response}));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }
+
   render() {
     return (
       <>
-        <h1 class="pt-4 px-3">Ticket #ID</h1>
+        <h1 class="pt-4 px-3">Ticket #{this.state.currentId}</h1>
         <div class="row">
           <div class="col-12 col-md-4 mb-3 order-1 order-md-1 pt-3 ps-3">
             <div class="card">
               <div class="card-header">
-                <strong>FULLNAME HERE</strong>
+                <strong>{this.state.currentTicket.firstName} {this.state.currentTicket.lastName}</strong>
               </div>
               <div class="card-body">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
                     <strong>E-mail: </strong>
-                    EMAIL HERE
+                    {this.state.currentTicket.email}
                   </li>
                   <li class="list-group-item">
                     <strong>Phone: </strong>
-                    PHONENUMBER HERE
+                    {this.state.currentTicket.phoneNumber}
                   </li>
                   <li class="list-group-item">
                     <strong>Ticket Status: </strong>
-                    STATUS HERE
+                    {this.state.currentTicket.status}
                   </li>
                 </ul>
               </div>
@@ -32,32 +85,16 @@ class LookAtTicket extends Component {
           <div class="col-12 col-md-8 mb-3 order-3 order-md-2 pt-3 pe-4">
             <div class="card">
               <div class="card-header">
-                <strong>SUBJECT HERE</strong>
+                <strong>{this.state.currentTicket.subject}</strong>
               </div>
               <div class="card-body">
-                <p>MESSAGE HERE</p>
+                <p>{this.state.currentTicket.message}</p>
               </div>
               <div class="card-footer">
-                <small>CREATED: TIMESTAMP HERE</small>
+                <small>CREATED: {this.state.currentTicket.timeStamp}</small>
               </div>
             </div>
           </div>
-          {/* Decide wether we want a toggler to add answers or not.
-
-                    <div class="col-12 col-md-2 mb-3 order-2 order-md-3">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong>Actions</strong>
-                            </div>
-                            <div class="card-body">
-                                <button disabled="@DisableButtons" class="btn btn-primary w-100 mb-3">Add answer</button>
-                            </div>
-                            <div class="card-footer"><
-                            /div>
-                        </div>
-                    </div>
-
-                    */}
         </div>
 
         <hr />
@@ -65,49 +102,56 @@ class LookAtTicket extends Component {
         <div className="row mb-5" class="pt-4 px-3">
           <div className="col-12">
             <h4>Answers</h4>
-            <div className="card mb-3">
-              <div className="card-header">AUTHOR FULLNAME answered:</div>
-              <div className="card-body">AUTHOR MESSAGE</div>
-              <div className="card-footer">
-                <small>AUTHOR MESSAGE TIMESTAMP</small>
-              </div>
-            </div>
+            {
+              this.state.currentTicket.answers.map((answer, x) => {
+                return (<div key={x} className="card mb-3">
+                  <div className="card-header">{answer.authorFirstName} {answer.authorLastName} answered:</div>
+                  <div className="card-body">{answer.message}</div>
+                  <div className="card-footer">
+                    <small>{answer.timeStamp}</small>
+                  </div>
+                </div>);
+              })
+            }
+
           </div>
         </div>
 
-        <div id="pageOverlay" class="@OverlayCssClass">
-          <div id="bottomActionbar" class="bg-light text-center pt-4 px-3">
-            <div class="row">
-              <div class="col">
+        { this.state.currentTicket.status == 'Open' && (<div id="pageOverlay" className="@OverlayCssClass">
+          <div id="bottomActionbar" className="bg-light text-center pt-4 px-3">
+            <div className="row">
+              <div className="col">
                 <h2>Add answer</h2>
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-12 col-md-2"></div>
-              <div class="col-12 col-md-8 px-4">
+            <div className="row mb-3">
+              <div className="col-12 col-md-2"></div>
+              <div className="col-12 col-md-8 px-4">
                 <textarea
-                  class="form-control"
-                  rows="4"
-                  placeholder="Enter answer here..."
+                    className="form-control"
+                    rows="4"
+                    placeholder="Enter answer here..."
+                    name="message"
+                    onChange={this.changeHandler}
                 ></textarea>
               </div>
-              <div class="col-12 col-md-2"></div>
+              <div className="col-12 col-md-2"></div>
             </div>
-            <div class="row">
-              <div class="col-12 col-md-2"></div>
-              <div class="col-6 col-md-4 px-4">
-                <button class="btn btn-primary w-100">Save Answer</button>
+            <div className="row">
+              <div className="col-12 col-md-2"></div>
+              <div className="col-6 col-md-4 px-4">
+                <button onClick={this.submitHandler} className="btn btn-primary w-100">Save Answer</button>
               </div>
-              <div class="col-6 col-md-4 px-4">
-                <button class="btn btn-danger w-100">Cancel</button>
+              <div className="col-6 col-md-4 px-4">
+                <button className="btn btn-danger w-100">Cancel</button>
               </div>
-              <div class="col-12 col-md-2"></div>
+              <div className="col-12 col-md-2"></div>
             </div>
           </div>
-        </div>
+        </div>)}
       </>
     );
   }
 }
 
-export default LookAtTicket;
+export default withParams(LookAtTicket);

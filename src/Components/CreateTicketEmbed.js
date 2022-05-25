@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 class CreateTicketEmbed extends Component {
   constructor(props) {
@@ -21,7 +22,9 @@ class CreateTicketEmbed extends Component {
     axios
       .post("http://vps.qvistgaard.me:8980/api/ticket", this.state)
       .then((response) => {
-        alert("Ticket was created :-)");
+        this.setState({ newTicketId: response.data.id });
+        this.formElement.style.display = 'none';
+        this.successElement.style.display = 'block';
         this.resetForm();
       })
       .catch((error) => {
@@ -56,6 +59,20 @@ class CreateTicketEmbed extends Component {
           onSubmit={this.submitHandler}
           id="createForm"
         >
+          <div ref={(divElement) => {
+            this.successElement = divElement;
+          }} style={
+            {
+              display: 'none',
+              textAlign: 'center'
+            }
+          }>
+            <h4>Ticket was created!</h4>
+            <Link to={`/viewticket/${this.state.newTicketId}`}>Click here to view it</Link>
+          </div>
+          <div ref={(divElement) => {
+            this.formElement = divElement;
+          }}>
           <div className="row">
             <div className="col-12 col-md-6">
               <h4>User Information</h4>
@@ -151,6 +168,7 @@ class CreateTicketEmbed extends Component {
                 Reset
               </button>
             </div>
+          </div>
           </div>
         </form>
       </>

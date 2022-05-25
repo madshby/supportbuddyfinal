@@ -14,7 +14,7 @@ function App() {
             path="/createticket"
             element={<CreateTicketEmbed />}
           ></Route>
-          <Route exact path="/viewticket" element={<LookAtTicket />}></Route>
+          <Route exact path="/viewticket/:id" element={<LookAtTicket />}></Route>
         </Routes>
       </Router>
     </>

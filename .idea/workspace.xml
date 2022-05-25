@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="72377f4c-25b5-41df-8f2e-286e7864bf8e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/CreateTicketEmbed.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/CreateTicketEmbed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Resources/styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Resources/styles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SupportEngine/Avatar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SupportEngine/Avatar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/LookAtTicket.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/LookAtTicket.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SupportEngine/SupportWindow/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SupportEngine/SupportWindow/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +51,8 @@
       <workItem from="1652182516760" duration="3120000" />
       <workItem from="1652350186086" duration="4254000" />
       <workItem from="1652991708228" duration="1920000" />
-      <workItem from="1653398479184" duration="4836000" />
+      <workItem from="1653398479184" duration="4837000" />
+      <workItem from="1653483880960" duration="5176000" />
     </task>
     <servers />
   </component>
